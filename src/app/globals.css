@@ -1,0 +1,91 @@
+/* src/app/globals.css */
+
+/* 1. Tailwind CSS v3 표준 지시어 */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 2. 전역 변수 및 폰트 설정 */
+:root {
+  --background: #F9F8F5; /* LOLO 스타일의 따뜻한 미색(Paper) */
+  --foreground: #2C2C2C; /* 깊이 있는 먹색(Ink) */
+}
+
+/* 3. 기본 스타일 초기화 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  /* 커스텀 커서를 사용할 것이므로 기본 마우스 포인터를 숨깁니다 */
+  cursor: none; 
+  /* 가로 스크롤 방지 */
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 4. 부드러운 스크롤(Lenis) 관련 설정 */
+html.lenis {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* 5. 타이포그래피 디테일 (LOLO 스타일) */
+h1, h2, h3 {
+  font-family: var(--font-serif), serif;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+}
+
+p, span, a {
+  font-family: var(--font-sans), sans-serif;
+  line-height: 1.6;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* 6. 유틸리티 클래스: 텍스트 세로 정렬 및 여백 */
+.section-padding {
+  @apply px-6 py-20 md:px-12 md:py-32;
+}
+
+.flex-center {
+  @apply flex items-center justify-center;
+}
+
+/* 7. 커스텀 커서 상호작용 (선택 사항) */
+/* 버튼이나 링크에 마우스를 올렸을 때의 변화를 위해 사용됩니다 */
+a, button {
+  cursor: none;
+}
+
+/* src/app/globals.css */
+
+/* src/app/globals.css 하단에 추가 */
+html {
+  scroll-padding-top: 100px; /* 메뉴바 높이만큼 여유 공간 확보 */
+}
