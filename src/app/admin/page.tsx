@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { supabase } from "../../lib/supabase"; // 상대 경로 유지
 import { motion, AnimatePresence } from "framer-motion";
@@ -11,6 +12,7 @@ import {
 import Link from "next/link";
 
 export default function AdminPage() {
+  const router = useRouter();
   const [tab, setTab] = useState<"inquiry" | "program" | "work">("inquiry");
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
