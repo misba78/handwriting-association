@@ -17,8 +17,8 @@ export default function Home() {
           className="z-10"
         >
           <h1 className="text-5xl md:text-8xl font-serif tracking-tighter leading-tight mb-6">
-            Handwriting<br />
-            <span className="italic opacity-70">Association.</span>
+            이산<br />
+            <span className="italic opacity-70">글씨협회.</span>
           </h1>
           <p className="text-sm md:text-lg opacity-60 max-w-md leading-relaxed mb-12 font-medium">
             손글씨의 아름다움을 연구하고, <br className="hidden md:block"/>
