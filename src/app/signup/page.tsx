@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { supabase } from "../lib/supabase"; // 경로 확인: src/lib/supabase
+import { supabase } from "../../lib/supabase";
 import { motion } from "framer-motion";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
