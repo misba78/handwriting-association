@@ -94,7 +94,7 @@ export default function Home() {
             transition={{ delay: 1.5, duration: 1 }}
             className="mt-12 text-[10px] md:text-xs uppercase tracking-[0.4em] text-ink/60"
           >
-            Handwriting Association — Art & Logic
+            손글씨 협회 — Art & Logic
           </motion.p>
         </div>
       </section>
@@ -107,7 +107,7 @@ export default function Home() {
           viewport={{ once: true }}
           className="max-w-3xl text-center"
         >
-          <span className="text-[10px] uppercase tracking-widest text-ink/40 mb-10 block">Our Philosophy</span>
+          <span className="text-[10px] uppercase tracking-widest text-ink/40 mb-10 block">필모그라피</span>
           <h2 className="text-2xl md:text-4xl font-light leading-relaxed text-ink/90 font-serif">
             디지털의 빠름 속에서 잃어버린 <br />
             <span className="italic">기다림의 미학</span>을 다시 세웁니다.
@@ -119,7 +119,7 @@ export default function Home() {
       {/* 3. Works Section */}
 <section id="works" className="bg-paper px-6 md:px-12 pb-40">
   <div className="flex justify-between items-end mb-20 max-w-7xl mx-auto">
-    <h3 className="text-4xl font-serif">Selected Works</h3>
+    <h3 className="text-4xl font-serif">작품 선택</h3>
     
     {/* 404 에러를 방지하기 위해 href를 정확히 /works로 설정합니다 */}
     <Link href="/works">
@@ -127,7 +127,7 @@ export default function Home() {
         whileHover={{ x: 5 }} // 마우스를 올리면 살짝 오른쪽으로 움직이는 효과
         className="text-[11px] uppercase tracking-widest text-ink/40 border-b border-ink/20 pb-1 cursor-pointer hover:text-ink hover:border-ink transition-all inline-flex items-center"
       >
-        View All Collection
+        모든 작품 보기
       </motion.span>
     </Link>
   </div>
@@ -138,10 +138,10 @@ export default function Home() {
       {/* 4. Works Section (DB 연동 및 대표작 필터링 버전) */}
       <section id="works" className="bg-paper px-6 md:px-12 pb-40">
         <div className="flex justify-between items-end mb-20 max-w-7xl mx-auto">
-          <h3 className="text-4xl font-serif">Selected Works</h3>
+          <h3 className="text-4xl font-serif">작품 선택</h3>
           <Link href="/works">
             <span className="text-[11px] uppercase tracking-widest text-ink/40 border-b border-ink/20 pb-1 cursor-pointer hover:text-ink transition-colors">
-              View All Collection
+              모든 작품 보기
             </span>
           </Link>
         </div>
@@ -177,7 +177,7 @@ export default function Home() {
       {/* 5. Journal/Programs Section (DB 연동 버전) */}
       <section id="programs" className="bg-paper px-6 md:px-12 py-40 border-t border-ink/5">
         <div className="max-w-7xl mx-auto">
-          <h3 className="text-4xl font-serif italic mb-20">Programs</h3>
+          <h3 className="text-4xl font-serif italic mb-20">행사 및 교육</h3>
           <div className="border-b border-ink/10">
             {programs.map((item, idx) => (
               <motion.div key={item.id} whileHover={{ x: 20 }} className="flex flex-col md:flex-row justify-between items-start md:items-center py-10 border-t border-ink/10 cursor-pointer transition-all">

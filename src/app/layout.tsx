@@ -67,10 +67,10 @@ export default function RootLayout({
             
             {/* 데스크탑 메뉴 */}
             <nav className="hidden md:flex items-center space-x-10 text-[11px] uppercase tracking-[0.2em] font-medium">
-              <Link href="/#about" className="hover:opacity-50 transition">About</Link>
-              <Link href="/works" className="hover:opacity-50 transition">Works</Link>
-              <Link href="/#programs" className="hover:opacity-50 transition">Journal</Link>
-              <Link href="/#contact" className="hover:opacity-50 transition">Contact</Link>
+              <Link href="/#about" className="hover:opacity-50 transition">협회소개</Link>
+              <Link href="/works" className="hover:opacity-50 transition">작품소개</Link>
+              <Link href="/#programs" className="hover:opacity-50 transition">행사 및 교육</Link>
+              <Link href="/#contact" className="hover:opacity-50 transition">문의하기</Link>
               
               {/* 인증 상태에 따른 동적 메뉴 */}
               <AnimatePresence mode="wait">

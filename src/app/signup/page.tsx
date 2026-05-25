@@ -1,75 +1,123 @@
 "use client";
 
 import { useState } from "react";
-import { supabase } from "../../lib/supabase";
-import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, UserPlus } from "lucide-react";
+import { supabase } from "../lib/supabase"; // 경로 확인: src/lib/supabase
+import { motion } from "framer-motion";
+import { ChevronLeft } from "lucide-react";
+import Link from "next/link";
 
-export default function SignupPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [fullName, setFullName] = useState("");
-  const [loading, setLoading] = useState(false);
+export default function SignUpPage() {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
 
-  const handleSignup = async (e: React.FormEvent) => {
+  const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: { full_name: fullName }, // 메타데이터로 이름 저장
-      },
-    });
+    try {
+      // Supabase 회원가입 로직
+      const { data, error } = await supabase.auth.signUp({
+        email: formData.email,
+        password: formData.password,
+        options: {
+          data: {
+            full_name: formData.name, // 어드민 페이지에서 사용할 작가 이름 저장!
+          },
+        },
+      });
 
-    if (error) {
-      alert("회원가입 실패: " + error.message);
-    } else {
-      alert("가입 확인 이메일을 보냈습니다. 이메일을 확인해 주세요!");
+      if (error) throw error;
+
+      alert("회원가입이 완료되었습니다! 로그인 페이지로 이동합니다.");
       router.push("/login");
+    } catch (error: any) {
+      alert("회원가입 실패: " + error.message);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
-    <main className="min-h-screen bg-paper flex items-center justify-center p-6">
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="w-full max-w-sm"
-      >
-        <button onClick={() => router.back()} className="mb-12 flex items-center text-[10px] uppercase tracking-widest opacity-40 hover:opacity-100 transition">
-          <ArrowLeft size={12} className="mr-2" /> Back
-        </button>
+    <div className="min-h-screen bg-[#F9F8F5] text-[#2C2C2C] flex flex-col justify-center items-center p-6">
+      <div className="w-full max-w-md">
+        {/* 뒤로 가기 링크 */}
+        <Link 
+          href="/login" 
+          className="inline-flex items-center text-[10px] uppercase tracking-widest opacity-40 hover:opacity-100 transition mb-12"
+        >
+          <ChevronLeft size={12} className="mr-1" /> Back to Login
+        </Link>
 
-        <h1 className="text-4xl font-serif italic mb-12 text-ink">Join Us.</h1>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          <h1 className="text-4xl font-serif italic mb-2">Join us.</h1>
+          <p className="text-[11px] uppercase tracking-widest opacity-40 mb-12">
+            Become a member of the association
+          </p>
 
-        <form onSubmit={handleSignup} className="space-y-8">
-          <div className="space-y-2">
-            <label className="text-[9px] uppercase tracking-widest text-ink/40">Full Name</label>
-            <input required type="text" value={fullName} onChange={(e) => setFullName(e.target.value)} className="w-full bg-transparent border-b border-ink/20 py-2 outline-none focus:border-ink transition-colors" />
-          </div>
-          <div className="space-y-2">
-            <label className="text-[9px] uppercase tracking-widest text-ink/40">Email</label>
-            <input required type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full bg-transparent border-b border-ink/20 py-2 outline-none focus:border-ink transition-colors" />
-          </div>
-          <div className="space-y-2">
-            <label className="text-[9px] uppercase tracking-widest text-ink/40">Password</label>
-            <input required type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full bg-transparent border-b border-ink/20 py-2 outline-none focus:border-ink transition-colors" />
-          </div>
+          <form onSubmit={handleSignUp} className="space-y-8">
+            <div className="space-y-2">
+              <label className="text-[9px] uppercase tracking-widest opacity-40">Artist Name</label>
+              <input
+                type="text"
+                required
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                className="w-full bg-transparent border-b border-black/10 py-3 outline-none focus:border-black transition"
+                placeholder="작가명 (예: 홍길동)"
+              />
+            </div>
 
-          <button disabled={loading} className="w-full bg-ink text-paper py-4 text-[11px] uppercase tracking-[0.3em] font-bold hover:opacity-90 transition disabled:opacity-30 flex items-center justify-center gap-2">
-            {loading ? "Processing..." : <><UserPlus size={14} /> Create Account</>}
-          </button>
-        </form>
-        
-        <p className="mt-8 text-center text-[10px] text-ink/40 uppercase tracking-widest">
-          Already have an account? <a href="/login" className="text-ink underline underline-offset-4">Login</a>
-        </p>
-      </motion.div>
-    </main>
+            <div className="space-y-2">
+              <label className="text-[9px] uppercase tracking-widest opacity-40">Email Address</label>
+              <input
+                type="email"
+                required
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                className="w-full bg-transparent border-b border-black/10 py-3 outline-none focus:border-black transition"
+                placeholder="이메일"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-[9px] uppercase tracking-widest opacity-40">Password</label>
+              <input
+                type="password"
+                required
+                value={formData.password}
+                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                className="w-full bg-transparent border-b border-black/10 py-3 outline-none focus:border-black transition"
+                placeholder="비밀번호 (6자리 이상)"
+                minLength={6}
+              />
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-black text-white py-4 text-[10px] uppercase tracking-widest font-bold disabled:opacity-30 hover:bg-black/80 transition"
+            >
+              {loading ? "Creating Account..." : "Sign Up"}
+            </button>
+          </form>
+
+          <div className="mt-8 text-center">
+            <Link href="/login" className="text-[10px] uppercase tracking-widest opacity-40 hover:opacity-100 transition border-b border-black/20 pb-1">
+              Already have an account? Log in
+            </Link>
+          </div>
+        </motion.div>
+      </div>
+    </div>
   );
 }
