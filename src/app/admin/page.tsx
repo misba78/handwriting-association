@@ -13,10 +13,12 @@ import Link from "next/link";
 
 export default function AdminPage() {
   const router = useRouter();
+
+  
   const [tab, setTab] = useState<"inquiry" | "program" | "work">("inquiry");
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
-  
+  const [activeTab, setActiveTab] = useState("works");
   // 데이터 상태들
   const [inquiries, setInquiries] = useState<any[]>([]);
   const [programs, setPrograms] = useState<any[]>([]);
