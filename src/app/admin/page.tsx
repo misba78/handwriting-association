@@ -12,13 +12,13 @@ import {
 import Link from "next/link";
 
 export default function AdminPage() {
-  const router = useRouter();
+  const router = useRouter(); // ✅ 라우터 선언 정상 유지
 
-  
   const [tab, setTab] = useState<"inquiry" | "program" | "work">("inquiry");
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
   const [activeTab, setActiveTab] = useState("works");
+
   // 데이터 상태들
   const [inquiries, setInquiries] = useState<any[]>([]);
   const [programs, setPrograms] = useState<any[]>([]);
@@ -42,23 +42,20 @@ export default function AdminPage() {
     setLoading(false);
   };
 
-
-
-
-
-  
+  // ✅ FIX: 중복 호출 버그 제거 및 의존성 배열(router) 추가
   useEffect(() => {
     const checkUser = async () => {
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session) {
-      router.push("/login"); // 로그인 안 되어 있으면 로그인 페이지로 추방(?)
-    } else {
-      fetchData(); // 로그인 되어 있으면 데이터 로드
-    }
-  };
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        router.push("/login"); // 로그인 안 되어 있으면 로그인 페이지로 추방
+      } else {
+        fetchData(); // 로그인 되어 있으면 데이터 로드
+      }
+    };
+
     checkUser();
-    fetchData();
-  }, []);
+    // fetchData(); <-- 기존에 있던 이 줄을 삭제했습니다. (비로그인 상태에서도 무작정 데이터를 불러와 에러를 내던 주범입니다)
+  }, [router]);
 
   // 2. 강좌 추가 로직
   const handleAddProgram = async (e: React.FormEvent) => {
